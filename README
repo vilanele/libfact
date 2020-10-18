@@ -1,0 +1,15 @@
+Please see the joined documentation to learn about libfact.
+
+Building libfact is straightforward : just run make. 
+It will produce three files :
+
+    - a static library libfact.a
+    - a shared library libfact.so 
+    - a gp-script      libfact.gp
+
+You can now use the library. Just include libfact.h in your source
+files and link to the desired library. To use the library within a
+gp-session, just read "libfact.gp" within gp. You can move the script
+"libfact.gp" around but if you do so with the shared library file 
+"libfact.so", don't forget to update the absolute path in the first 
+line of the script "libfact.gp".
