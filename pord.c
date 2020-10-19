@@ -491,14 +491,13 @@ GEN zkpord(GEN nf, GEN pr, long n){
 GEN zkfact_mlist( GEN nf, long k, GEN mprodlist )
 {	
 	pari_sp afe;
-	GEN v,true_nf,l,id,p,ppow;
+	GEN v,true_nf,l,p,ppow;
 	long unused;
 	forprime_t pt;
 
 	afe = avma;
-	true_nf = get_nf(nf,&unused);
-	id =  matid(nf_get_degree(true_nf));
-	if( !k || k == 1) return id;
+	nf = checknf(nf);
+	if( !k || k == 1) return matid(nf_get_degree(nf));
 	
 	v = cgetg( 2, t_VEC );
 	gel(v,1) = gcopy(id);
