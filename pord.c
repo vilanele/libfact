@@ -421,7 +421,7 @@ GEN pr_rep(GEN nf, GEN pr, long n){
 	pari_sp afe;
 	GEN rep,v,p,modpr;
 	int single;
-	long vn, unused;
+	long vn;
 
 	afe = avma;
 	nf = checknf(nf);
@@ -492,13 +492,13 @@ GEN zkpord(GEN nf, GEN pr, long n){
 GEN zkfact_mlist( GEN nf, long k, GEN mprodlist )
 {	
 	pari_sp afe;
-	GEN v,l,p,ppow;
-	long unused;
+	GEN v,l,p,ppow, id;
 	forprime_t pt;
 
 	afe = avma;
 	nf = checknf(nf);
-	if( !k || k == 1) return matid(nf_get_degree(nf));
+	id = matid(nf_get_degree(nf));
+	if( !k || k == 1) return id;
 	
 	v = cgetg( 2, t_VEC );
 	gel(v,1) = gcopy(id);
