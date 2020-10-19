@@ -754,3 +754,10 @@ replace_eol(s);
 install("qfunorm","G","qfunorm",libfact_abspath);
 addhelp("qfunorm",s);
 }
+
+{
+s = "pord_get_e(nf,pr,po,trunc) : return in a vector the trunc-1 first invariant exponents of thr pr-ordering po.";
+replace_eol(s);
+install("pord_get_e","GGGD-1,L,","pord_get_e",libfact_abspath);
+addhelp("pord_get_e",s);
+}
