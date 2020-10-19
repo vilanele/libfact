@@ -27,7 +27,7 @@ GEN modsplit(GEN nf, GEN pr, GEN S ){
 	return gerepilecopy(afe,v);
 }
 
-GEN modsplit_perm(GEN nf, GEN pr, GEN S, GEN *perm ){
+GEN modsplit_perm(GEN nf, GEN pr, GEN S, GEN *perm){
 	
 	pari_sp afe;
 	GEN v,sel,selcomp,save,vec01;
@@ -628,8 +628,8 @@ GEN zkregbasis( GEN bnf, long n, const char *s, long cmode ) {
 	GEN w,g;
 	
 	afe = avma;
-	g = principalgen( bnf, zkfact_vec(bnf,n) );
-	w = zkfactpol_vec( bnf, n, s, t_POLMOD);
+	g = principalgen(bnf, zkfact_vec(bnf,n));
+	w = zkfactpol_vec(bnf, n, s, t_POLMOD);
 	for( long i = 2; i <= vcard(w); i++ ){
 		top = avma;
 		gel(w,i) = RgX_Rg_mul(gel(w,i),basistoalg(bnf,nfinv(bnf,gel(g,i-1))));
@@ -641,10 +641,11 @@ GEN zkregbasis( GEN bnf, long n, const char *s, long cmode ) {
 
 int ispolyaupto( GEN bnf, long n ){
 	
-	pari_sp afe = avma;
+	pari_sp afe;;
 	GEN v;
 	int is;
 	
+	afe = avma;
 	v = idealmaxprodlist(bnf,n);
 	is = 1;
 	for( long i = 1; i <= n; i++ ){

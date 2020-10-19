@@ -768,3 +768,10 @@ s = replace_eol(s);
 install("rpord_get_e","GGGLD-1,L,","rpord_get_e",libfact_abspath);
 addhelp("rpord_get_e",s);
 }
+
+{
+s = "opord_get_e(nf,pr,opo,h,trunc) : return in a vector the trunc-1 first invariant exponents of the pr-ordering of order h opo";
+replace_eol(s);
+install("opord_get_e","GGGLD-1,L,","opord_get_e",libfact_abspath);
+addhelp("opord_get_e",s);
+}

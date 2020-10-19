@@ -199,6 +199,20 @@ GEN opord_e(GEN nf, GEN pr, GEN S, long h, long trunc){
 	return gerepilecopy(afe,vecslice(sort(v),2,trunc));	
 }
 
+
+GEN opord_get_e(GEN nf, GEN pr, GEN opo, long h, long trunc){
+	
+	pari_sp afe;
+	GEN v;
+	
+	afe = avma;
+	v = cgetg(trunc,t_VEC);
+	for(long i = 2; i <= trunc; i++)
+		gel(v,i-1) = vdiffprod_h(nf,pr,vec_shorten(opo,i-1),gel(opo,i),h);
+
+	return gerepilecopy(afe,v);
+}
+
 GEN opord_mod(GEN nf, GEN S, GEN modulus, long n){
 	
 	GEN P,H,v;
