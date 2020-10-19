@@ -422,9 +422,10 @@ GEN pr_rep(GEN nf, GEN pr, long n){
 	GEN rep,v,p,modpr;
 	int single;
 	long vn, unused;
-	
+
 	afe = avma;
-	vn = nf_get_varn(get_nf(nf,&unused));
+	nf = checknf(nf);
+	vn = nf_get_varn(nf);
 	single = 0;
 	if( checkprid_i(pr) ){
 		single = 1;
@@ -491,7 +492,7 @@ GEN zkpord(GEN nf, GEN pr, long n){
 GEN zkfact_mlist( GEN nf, long k, GEN mprodlist )
 {	
 	pari_sp afe;
-	GEN v,true_nf,l,p,ppow;
+	GEN v,l,p,ppow;
 	long unused;
 	forprime_t pt;
 
