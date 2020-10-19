@@ -1,5 +1,5 @@
 CC=gcc
-CCFLAGS=-Wall -O2 -s
+CCFLAGS=-Wall
 AR=ar
 ARFLAGS=-r
 LDFLAGS=-lpari

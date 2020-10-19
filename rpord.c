@@ -43,7 +43,7 @@ GEN modsplit_r(GEN nf, GEN pr, GEN S, long r){
 			R = vecsplice(R,1);
 		}
 	}
-	else v = save;
+	else v = mkvec(save);
 	
 	return gerepilecopy(afe,v);
 }
@@ -310,6 +310,44 @@ GEN rpord_e(GEN nf, GEN pr, GEN S, long r, long trunc){
 	return gerepilecopy(afe,vecslice(sort(v),2,trunc));
 }
 
+long rpord_ssmin(GEN nf, GEN pr, GEN S, long r, long k){
+	
+	GEN ss,SS,ordered,x,v;
+	long i;
+	
+	forsubset_t ss_t;
+	forksubset_init(&ss_t,k-1,k-1-r);
+	
+	x = gel(S,k);
+	ordered = vec_shorten(S,k-1);
+	v = cgetg(1+itos(binomialuu(k-1,k-1-r)),t_VECSMALL);
+	i = 1;
+	while( (ss = forsubset_next(&ss_t)) ){
+		
+		SS = shallowextract(ordered,ss);
+		gel(v,i) = (long*)nfval(nf,vdiffprod(nf,SS,x),pr);
+		i++;
+	}
+	
+	return itos(vecmin(v));
+}
+
+GEN rpord_get_e(GEN nf, GEN pr, GEN rpo, long r, long trunc ){
+	
+	pari_sp afe;
+	GEN e;
+	
+	afe = avma;
+	if( trunc == -1 ) trunc = vcard(rpo);
+	if( trunc <= (r+1) ) return const_vec(trunc-1,gen_0);
+	
+	e = vec_lengthen(const_vec(r,gen_0),trunc-1);
+	for(long i = r+2; i <= trunc; i++)
+		gel(e,i-1) = stoi(rpord_ssmin(nf,pr,rpo,r,i));
+	
+	return gerepilecopy(afe,e);
+}
+
 GEN rpord_E( GEN nf, GEN S, GEN primes, long r, long n){
 	
 	GEN E;
@@ -439,11 +477,12 @@ GEN rlegf_vec(GEN q, GEN r, long lg){
 GEN zkrpord(GEN nf, GEN pr, long r, long n){
 	
 	pari_sp afe;
-	GEN S;
+	GEN po;
 	
 	afe = avma;
-	S = zkpord(nf,pr,n);
-	return gerepilecopy(afe,rpord(nf,pr,S,r,n,NULL,NULL));
+	po = zkpord(nf,pr,n);
+	
+	return gerepilecopy(afe,rpord(nf,pr,po,r,n,NULL,NULL));
 }
 
 GEN zkremfact_mlist( GEN nf, long k, long r, GEN mprodlist )
@@ -603,28 +642,6 @@ GEN zkremregbasis( GEN bnf, long r, long n, const char *s, long cmode ) {
 	return gerepileupto(afe,w);
 }
 
-long isrpord_ssmin(GEN nf, GEN pr, GEN S, long r, long k){
-	
-	GEN ss,SS,ordered,x,v;
-	long i;
-	
-	forsubset_t ss_t;
-	forksubset_init(&ss_t,k-1,k-1-r);
-	
-	x = gel(S,k);
-	ordered = vec_shorten(S,k-1);
-	v = cgetg(1+itos(binomialuu(k-1,k-1-r)),t_VECSMALL);
-	i = 1;
-	while( (ss = forsubset_next(&ss_t)) ){
-		
-		SS = shallowextract(ordered,ss);
-		gel(v,i) = (long*)nfval(nf,vdiffprod(nf,SS,x),pr);
-		i++;
-	}
-	
-	return itos(vecmin(v));
-}
-
 int isrpord(GEN nf, GEN pr, GEN S, long r, long n, GEN *i){
 	
 	pari_sp afe = avma;
@@ -635,14 +652,14 @@ int isrpord(GEN nf, GEN pr, GEN S, long r, long n, GEN *i){
 	if( vcard(S) <= r+1 || n <= r+1) return 1;
 
 	val1 = itos(gel(rpord_e(nf,pr,S,r,r+2),r+1));
-	val = isrpord_ssmin(nf,pr,S,r,r+2);
+	val = rpord_ssmin(nf,pr,S,r,r+2);
 	
 	is = 1;
 	if( val == val1)
 	{
 		for( long k = r+3, prev_val = val; k <= n; k++)
 		{
-			val = isrpord_ssmin(nf,pr,S,r,k);
+			val = rpord_ssmin(nf,pr,S,r,k);
 			if( val < prev_val) 
 				{ is = 0; if(i)*i=stoi(k); break; }
 			 prev_val = val;

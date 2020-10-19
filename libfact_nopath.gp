@@ -756,8 +756,15 @@ addhelp("qfunorm",s);
 }
 
 {
-s = "pord_get_e(nf,pr,po,trunc) : return in a vector the trunc-1 first invariant exponents of thr pr-ordering po.";
+s = "pord_get_e(nf,pr,po,trunc) : return in a vector the trunc-1 first invariant exponents of the pr-ordering po.";
 replace_eol(s);
 install("pord_get_e","GGGD-1,L,","pord_get_e",libfact_abspath);
 addhelp("pord_get_e",s);
+}
+
+{
+s = "rpord_get_e(nf,pr,rpo,r,trunc) : return in a vector the trunc-1 first invariant exponents of the r-removed pr-ordering rpo.";
+s = replace_eol(s);
+install("rpord_get_e","GGGLD-1,L,","rpord_get_e",libfact_abspath);
+addhelp("rpord_get_e",s);
 }
