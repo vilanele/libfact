@@ -266,6 +266,15 @@ GEN pord_e( GEN nf, GEN pr, GEN S, long trunc ){
 	return gerepilecopy(afe,vecslice(sort(v),2,trunc));
 }
 
+GEN pord_get_e(GEN nf, GEN pr, GEN po, long trunc ){
+	
+	pari_sp afe;
+	
+	afe = avma;
+	if( trunc == -1 ) trunc = vcard(po);
+	return gerepileupto(afe, nfvalvec(nf,pr,vdiffs(nf, po)));
+}
+
 GEN pord_E(GEN nf, GEN S, GEN primes, long n ){
 	
 	GEN E;
