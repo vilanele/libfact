@@ -206,7 +206,7 @@ GEN opord_get_e(GEN nf, GEN pr, GEN opo, long h, long trunc){
 	GEN v;
 	
 	afe = avma;
-	if( trunc == -1 ) trunc = vcard(S);
+	if( trunc == -1 ) trunc = vcard(opo);
 	v = cgetg(trunc,t_VEC);
 	for(long i = 2; i <= trunc; i++)
 		gel(v,i-1) = vdiffprod_h(nf,pr,vec_shorten(opo,i-1),gel(opo,i),h);
