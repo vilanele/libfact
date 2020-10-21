@@ -6,6 +6,7 @@ LDFLAGS=-lpari
 OBJ=pord.o opord.o rpord.o utils.o misc.o quad.o
 SHAREDLIB=libfact.so
 STATICLIB=libfact.a
+GPLIB0=gp/libfact0.gp
 GPLIB=libfact.gp
 GPLIB_NOPATH=libfact_nopath.gp
 TEST=test
@@ -24,21 +25,24 @@ sharedlib: $(OBJ)
 
 staticlib: $(OBJ)
 	$(AR) $(ARFLAGS) $(STATICLIB) $(OBJ)
-	
-gplib: $(GPLIB_NOPATH)
-	
-	@echo "libfact_abspath=\"$(SHAREDLIB_PATH)\";" > temp
-	@cat temp $(GPLIB_NOPATH) > $(GPLIB)
+
+gplib: 
+	@echo "libfact=\"$(SHAREDLIB_PATH)\";" > temp
+	@echo "install(\"replace_eol\",\"vs\",\"replace_eol\",libfact);" >> temp
+	@cat temp gp/*.gp > libfact.gp 
 	@rm -f temp
-	@echo "$(GPLIB) : absolute path to $(SHAREDLIB) writen in $(GPLIB)"
-	@echo "    $(SHAREDLIB_PATH)" 
 
 %.o: %.c
 	$(CC) $(CCFLAGS) -o $@ -c $<
 
-.PHONY: clean
+.PHONY: clean cleanobj cleanlibs cleantest
+clean: cleanobj cleanlibs cleantest
 
-clean:
+cleanobj:
 	rm -f $(OBJ)
-	rm -f $(SHAREDLIB) $(STATICLIB) $(GPLIB) $(TEST)
+		
+cleanlibs:
+	rm -f $(SHAREDLIB) $(STATICLIB) $(GPLIB)
 
+cleantest:
+	rm -f $(TEST)

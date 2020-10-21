@@ -431,6 +431,21 @@ GEN zkopord(GEN nf, GEN pr, long h, long n){
 	return gerepilecopy(afe,opord(nf,pr,S,h,1,n,NULL,NULL));
 }
 
+GEN zkopord_e(GEN nf, GEN pr, long h, long n){
+	
+	pari_sp afe;
+	GEN q;
+	
+	afe = avma;
+	q = pr_norm(pr);
+	return gerepileupto(afe,olegf_vec(q, stoi(h), n));
+}
+
+int iszkopord(GEN nf, GEN pr, GEN S, long h){
+	
+	return ZV_equal(zkopord_e(nf,pr,h,vcard(S)-1), opord_get_e(nf, pr, S, h, -1));
+}
+
 GEN zkfactmodpol(GEN nf, GEN modulus, long k, const char *s, long cmode){
 	
 	pari_sp afe;

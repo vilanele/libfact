@@ -27,6 +27,7 @@ int 			isposi( GEN x );
 int 			isprincipalideal( GEN nf, GEN x );
 int 			iszeroi( GEN x );
 GEN 			legf(GEN q, GEN n);
+GEN             legf_vec(GEN q, GEN n);
 GEN				legf_slow(GEN q, GEN n);
 GEN 			maxideals( GEN nf , long n ) ;
 GEN 			minii( GEN x, GEN y );

@@ -16,6 +16,8 @@ GEN sfact_vec( GEN nf, GEN S, long n);
 GEN sfactnorm_vec(GEN nf, GEN S, long n);
 GEN sfactexp( GEN nf, GEN S, GEN x );
 GEN zkpord(GEN nf, GEN pr, long n);
+GEN zkpord_e(GEN nf, GEN pr, long n);
+int iszkpord(GEN nf, GEN pr, GEN S);
 GEN zkfact( GEN nf, long k );
 GEN zkfact_vec( GEN nf, long n );
 GEN zkfactnorm( GEN nf, long k );

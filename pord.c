@@ -489,6 +489,21 @@ GEN zkpord(GEN nf, GEN pr, long n){
 	return gerepilecopy(afe,v);
 }
 
+GEN zkpord_e(GEN nf, GEN pr, long n){
+	
+	pari_sp afe;
+	GEN q;
+	
+	afe = avma;
+	q = pr_norm(pr);
+	return gerepileupto(afe,legf_vec(q, stoi(n)));
+}
+
+int iszkpord(GEN nf, GEN pr, GEN S){
+	
+	return ZV_equal(pord_get_e(nf,pr,S,-1), zkpord_e(nf, pr, vcard(S)-1));
+}
+
 GEN zkfact_mlist( GEN nf, long k, GEN mprodlist )
 {	
 	pari_sp afe;

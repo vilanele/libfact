@@ -485,6 +485,22 @@ GEN zkrpord(GEN nf, GEN pr, long r, long n){
 	return gerepilecopy(afe,rpord(nf,pr,po,r,n,NULL,NULL));
 }
 
+GEN zkrpord_e(GEN nf, GEN pr, long r, long n){
+	
+	pari_sp afe;
+	GEN q;
+	
+	afe = avma;
+	q = pr_norm(pr);
+	
+	return gerepileupto(afe,rlegf_vec(q, stoi(r), n));
+}
+
+int iszkrpord(GEN nf, GEN pr, GEN S, long r){
+	
+	return ZV_equal(zkrpord_e(nf, pr, r, vcard(S)-1), rpord_get_e(nf, pr, S, r, -1));
+}
+
 GEN zkremfact_mlist( GEN nf, long k, long r, GEN mprodlist )
 {	
 	pari_sp afe;

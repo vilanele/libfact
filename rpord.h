@@ -25,5 +25,7 @@ GEN zkremregbasis( GEN bnf, long r, long n, const char *s, long cmode );
 int isrpord(GEN nf, GEN pr, GEN S, long r, long n, GEN *i);
 int ispolyaupto_rem(GEN bnf, long r, long n);
 GEN nfX_divdiff(GEN nf, GEN pol, long k, GEN *vars);
+GEN zkrpord_e(GEN nf, GEN pr, long r, long n);
+int iszkrpord(GEN nf, GEN pr, GEN S, long r);
 
 #endif

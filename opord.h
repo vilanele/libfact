@@ -22,5 +22,7 @@ GEN zkfactmodpol_vec(GEN nf, GEN modulus, long n, const char *s, long cmode);
 GEN zkmodregbasis(GEN bnf, GEN modulus, long n, const char *s, long cmode);
 int ispolyaupto_mod(GEN bnf, GEN modulus, long n);
 int isopord(GEN nf, GEN pr, GEN S, long h, long n, GEN *i);
+GEN zkopord_e(GEN nf, GEN pr, long h, long n);
+int iszkopord(GEN nf, GEN pr, GEN S, long h);
 
 #endif
