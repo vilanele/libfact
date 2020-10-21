@@ -1,7 +1,7 @@
 Libfact uses pari/gp and provides functions to deal with generalized
 factorial functions and related objects.
 
-There are two documentation for the library in doc:
+There are two documentations for the library in doc:
     - libfact-doc.pdf        a talkative documentation with references
                              and examples in gp-code
 
