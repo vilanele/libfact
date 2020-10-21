@@ -1,4 +1,13 @@
-Please see the joined documentation to learn about libfact.
+Libfact uses pari/gp and provides functions to deal with generalized
+factorial functions and related objects.
+
+There are two documentation for the library in doc:
+    - libfact-doc.pdf        a talkative documentation with references
+                             and examples in gp-code
+
+    - libfact-quickdoc.pdf   a quick documentatino only listing and
+                             explaining  proposed functions
+                             
 
 Building libfact is straightforward : just run make. 
 It will produce three files :
@@ -8,8 +17,9 @@ It will produce three files :
     - a gp-script      libfact.gp
 
 You can now use the library. Just include libfact.h in your source
-files and link to the desired library. To use the library within a
-gp-session, just read "libfact.gp" within gp. You can move the script
-"libfact.gp" around but if you do so with the shared library file 
-"libfact.so", don't forget to update the absolute path in the first 
-line of the script "libfact.gp".
+files and link to the desired library. 
+To use the library within a gp-session, just read "libfact.gp" 
+within gp. 
+You can move the script "libfact.gp" around but if you do so with 
+the shared library file "libfact.so", don't forget to update the 
+absolute path in the first line of the script "libfact.gp".
