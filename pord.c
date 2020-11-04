@@ -644,7 +644,8 @@ GEN zkregbasis( GEN bnf, long n, const char *s, long cmode ) {
 	
 	afe = avma;
 	g = principalgen(bnf, zkfact_vec(bnf,n));
-	w = zkfactpol_vec(bnf, n, s, t_POLMOD);
+	w = zkfactpol_vec(bnf, n, s, 0);
+	pari_printf("w: %Ps\n", w);
 	for( long i = 2; i <= vcard(w); i++ ){
 		top = avma;
 		gel(w,i) = RgX_Rg_mul(gel(w,i),basistoalg(bnf,nfinv(bnf,gel(g,i-1))));
@@ -673,3 +674,19 @@ int ispolyaupto( GEN bnf, long n ){
 	
 	avma = afe; return is;
 }
+
+GEN zkregbasis_dec(GEN bnf, GEN pol, const char *s){
+	
+	pari_sp afe;
+	GEN B, X, M;
+	long deg;
+	
+	afe = avma;
+	deg = degree(pol);
+	B = zkregbasis(bnf, deg, s, 0);
+	X = RgX_to_RgC(pol, deg + 1);
+	M = RgXV_to_RgM(B, vcard(B));
+	
+	return gerepilecopy(afe,mkmat2(RgM_RgC_invimage(M,X),B));
+}
+

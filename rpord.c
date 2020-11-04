@@ -647,7 +647,7 @@ GEN zkremregbasis( GEN bnf, long r, long n, const char *s, long cmode ) {
 	GEN w,g;
 	
 	g = principalgen( bnf, zkremfact_vec( bnf,r,n) );
-	w = zkremfactpol_vec( bnf, r, n, s, t_POLMOD);
+	w = zkremfactpol_vec( bnf, r, n, s, cmode);
 
 	for( long i = 2; i <= vcard(w); i++ ){
 		pari_sp av = avma;
@@ -736,5 +736,20 @@ GEN nfX_divdiff(GEN nf, GEN pol, long k, GEN *vars){
 	if( vars ) gerepileall(afe,2,&pol,vars);
 	else pol = gerepilecopy(afe,pol);
 	return pol;
+}
+
+GEN zkremregbasis_dec(GEN bnf, GEN pol, long r, const char *s){
+	
+	pari_sp afe;
+	GEN B, X, M;
+	long deg;
+	
+	afe = avma;
+	deg = degree(pol);
+	B = zkremregbasis(bnf, r, deg, s, 0);
+	X = RgX_to_RgC(pol, deg + 1);
+	M = RgXV_to_RgM(B, vcard(B));
+	
+	return gerepilecopy(afe,mkmat2(RgM_RgC_invimage(M,X),B));
 }
  

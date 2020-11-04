@@ -454,6 +454,11 @@ GEN zkfactmodpol(GEN nf, GEN modulus, long k, const char *s, long cmode){
 	
 	afe = avma;
 	v = varn(varhigher(s,nf_get_varn(get_nf(nf,&unused))));
+	if( !k )
+		return pol_1(v);
+	if( k == 1 )
+		return pol_x(v);
+	
 	P = gel(modulus,1);
 	H = gel(modulus,2);
 	op = cgetg(lg(P),t_VEC);
@@ -490,7 +495,8 @@ GEN zkfactmodpol_vec(GEN nf, GEN modulus, long n, const char *s, long cmode){
 		gel(op,i) = zkopord(nf,p,itos(h),n);
 	}
 	
-	vec = cgetg(1+n,t_VEC);
+	vec = cgetg(1+(n+1),t_VEC);
+	gel(vec,1) = pol_1(v);
 	for(long k = 1; k <=n; k++ ){
 		top = avma;
 		pol = pol_1(v);
@@ -499,10 +505,10 @@ GEN zkfactmodpol_vec(GEN nf, GEN modulus, long n, const char *s, long cmode){
 			x = basistoalg(nf,x);
 			pol = RgX_mul(pol,RgX_Rg_sub(pol_x(v),x));
 		}
-		gel(vec,k) = gerepileupto(top,nfX_cmode(nf,pol,cmode));
+		gel(vec,k+1) = gerepileupto(top,nfX_cmode(nf,pol,cmode));
 	}
 	
-	return gerepileupto(afe,vec);	
+	return gerepilecopy(afe,vec);	
 }
 
 GEN zkmodregbasis(GEN bnf, GEN modulus, long n, const char *s, long cmode){
@@ -512,18 +518,17 @@ GEN zkmodregbasis(GEN bnf, GEN modulus, long n, const char *s, long cmode){
 	
 	afe = avma;
 	g = principalgen(bnf,zkfactmod_vec(bnf,modulus,n));
-	polvec = zkfactmodpol_vec( bnf, modulus, n, s,t_POLMOD);
-	
+	polvec = zkfactmodpol_vec( bnf, modulus, n, s,cmode);
 	v = cgetg(1+(n+1),t_VEC);
-	gel(v,1) = gen_1;
+	gel(v,1) = gel(polvec,1);
 	for( long i = 2; i <= vcard(v); i++ ){
 		top = avma;
 		x = basistoalg(bnf,nfinv(bnf,gel(g,i-1)));
-		x = RgX_Rg_mul(gel(polvec,i-1),x);
-		gel(v,i) = gerepileupto(top,nfX_cmode(bnf,x,cmode));
+		x = RgX_Rg_mul(gel(polvec,i),x);
+		gel(v,i) = gerepilecopy(top,nfX_cmode(bnf,x,cmode));
 	}
 		
-	return gerepileupto(afe,v);
+	return gerepilecopy(afe,v);
 }
 
 int ispolyaupto_mod(GEN bnf, GEN modulus, long n){
@@ -572,4 +577,20 @@ int isopord(GEN nf, GEN pr, GEN S, long h, long n, GEN *i){
 	if(i) *i = gerepilecopy(afe,*i);
 	else avma = afe;
 	return is;	
+}
+
+GEN zkmodregbasis_dec(GEN bnf, GEN pol, GEN mod, const char *s){
+	
+	pari_sp afe;
+	GEN B, X, M;
+	long deg;
+	
+	afe = avma;
+	deg = degree(pol);
+	
+	B = zkmodregbasis(bnf, mod, deg, s, 0);
+	X = RgX_to_RgC(pol, deg + 1);
+	M = RgXV_to_RgM(B, vcard(B));
+
+	return gerepilecopy(afe,mkmat2(RgM_RgC_invimage(M,X),B));
 }
