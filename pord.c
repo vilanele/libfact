@@ -501,7 +501,13 @@ GEN zkpord_e(GEN nf, GEN pr, long n){
 
 int iszkpord(GEN nf, GEN pr, GEN S){
 	
-	return ZV_equal(pord_get_e(nf,pr,S,-1), zkpord_e(nf, pr, vcard(S)-1));
+	pari_sp afe;
+	int is;
+	
+	afe = avma;
+	is = ZV_equal(pord_get_e(nf,pr,S,-1), zkpord_e(nf, pr, vcard(S)-1));
+	avma = afe;
+	return is;
 }
 
 GEN zkfact_mlist( GEN nf, long k, GEN mprodlist )
