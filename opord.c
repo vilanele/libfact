@@ -423,12 +423,7 @@ GEN olegf_vec(GEN q, GEN h, long n){
 	
 GEN zkopord(GEN nf, GEN pr, long h, long n){
 	
-	pari_sp afe;
-	GEN S;
-	
-	afe = avma;
-	S = zkpord(nf,pr,n);
-	return gerepilecopy(afe,opord(nf,pr,S,h,1,n,NULL,NULL));
+	return zkpord(nf,pr,n);
 }
 
 GEN zkopord_e(GEN nf, GEN pr, long h, long n){
