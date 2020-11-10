@@ -630,6 +630,121 @@ GEN zkfactpol(GEN nf, long k, const char *s, long cmode) {
 	return zkfactpol_core( nf, k, v, cmode );
 }
 
+GEN nfXcmode(GEN nf, GEN pol, long cmode){
+	
+	pari_sp afe;
+	long v;
+	GEN vcoeffs;
+	
+	afe = avma;
+	v = varn(pol);
+	vcoeffs = RgX_to_RgC(pol,lgpol(pol));
+
+	if( cmode == 0 )
+		vcoeffs = basistoalg_vec(nf, vcoeffs);
+	else if( cmode == 1)
+		vcoeffs = lift(basistoalg_vec(nf, vcoeffs));
+	else if( cmode == 2 )
+		vcoeffs = algtobasis_vec(nf, vcoeffs);
+
+	return gerepilecopy(afe,RgV_to_RgX(vcoeffs,v));
+}
+
+GEN vlegf(GEN q, GEN n){
+	
+		
+	
+}
+
+
+GEN legf_pr(GEN pr, GEN n){
+	
+	pari_sp afe;
+	GEN v;
+	
+	afe = avma;
+	v = cgetg(lg(pr),t_VEC);
+	for( long i = 1; i <= vcard(pr); i++ )
+		gel(v,i) = legf(pr_norm(gel(pr,i)),n);
+	
+	return gerepilecopy(afe,v);
+}
+
+GEN zkfactpol_var(GEN nf, long n, GEN var){
+
+	pari_sp afe = avma;
+	GEN M,E,mat,pol,vpord,X,a;
+	
+	nf = checknf(nf);
+	if( !var ) X = varhigher("X",nf_get_varn(nf));
+	else X = var;
+
+	if( !n )
+		pol = pol_1(varn(X));
+	else if( n == 1 )
+		pol = gcopy(X);
+	else{
+		M = maxideals(nf,n);
+		vpord = zkpord(nf,M,n);
+		E = ZC_add(legf_pr(M,stoi(n)),const_vec(vcard(M),gen_1));
+		mat = mkmat2(M,E);
+		pol = pol_1(varn(X));
+		for( long i = 1; i <= n; i++ ){
+			a = basistoalg(nf,idealchinese(nf,mat,row(vpord,i)));
+			pol = RgX_mul(pol,RgX_Rg_sub(X,a));
+		}
+	}
+
+	return gerepileupto(afe,pol);	
+}
+
+GEN vzkfactpol_var(GEN nf, long n, GEN var){
+	
+	pari_sp afe, top;
+	GEN M,E,mat,pol,vpord,X,a,Mk,v;
+	
+	afe = avma;
+	nf = checknf(nf);
+	if( !var ) X = varhigher("X",nf_get_varn(nf));
+	else X = var;
+
+	v = cgetg(1+(n+1),t_VEC);
+	gel(v,1) = pol_1(varn(X));
+
+	if( n >= 1){
+		gel(v,2) = gcopy(X);
+		
+		if(n >= 2){
+			M = idealmaxlist(nf, n);
+			Mk = mkvecn(0); vpord = mkvecn(0);
+			for( long k = 2; k <= n; k++ ){
+				top = avma;
+				if( vcard(gel(M,k)) ){
+					vpord = shallowconcat(vpord,zkpord(nf,gel(M,k),n));
+					Mk = shallowconcat(Mk,gel(M,k));
+				}
+				
+				E = ZC_add(legf_pr(Mk,stoi(k)),const_vec(vcard(Mk),gen_1));
+				mat = mkmat2(Mk,E);
+				pol = pol_1(varn(X));
+				/*pari_printf("%d\n", vcard(gel(mat,1)));
+				pari_printf("%d\n\n", vcard(vpord));
+				pari_printf("%Ps\n", Mk);
+				pari_printf("vpord:%Ps\n", vpord);*/
+				for( long i = 1; i <= k; i++ ){
+					a = basistoalg(nf,idealchinese(nf,mat,row(vpord,i)));
+					pol = RgX_mul(pol,RgX_Rg_sub(X,a));
+				}
+				gerepileall(top,3,&vpord,&Mk,&pol);
+				gel(v,k+1) = pol;
+			}
+		}
+	}
+		
+	return gerepilecopy(afe,v);	
+}
+	
+
 GEN zkfactpol_vec( GEN nf, long n, const char *s, long cmode ) {
 
 	GEN w;

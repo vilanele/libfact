@@ -8,3 +8,11 @@ replace_eol(s);
 install("zkfactpol","GLsD1,L,","zkfactpol",libfact);
 addhelp("zkfactpol",s);
 }
+
+{
+install("zkfactpol_var","GLDG","zkfactpol_var",libfact);
+install("nfXcmode","GGL","nfXcmode",libfact);
+install("vzkfactpol_var","GLG","vzkfactpol_var");
+
+
+}
