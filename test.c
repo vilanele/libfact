@@ -3,12 +3,13 @@
 
 int main(){
 	
-	GEN K,L,pr,a,b,c,d,e,f,S,ex,inv,M;
+	GEN K,L,pr,a,b,c,d,e,f,S,ex,inv,M,X;
 	
 	pari_init(10000000,0);
 	K = nfinit(mkpoln(3,gen_1,gen_0,gen_1),DEFAULTPREC);
 	L = bnfinit0(mkpoln(3,gen_1,gen_0,gen_1),0,NULL,DEFAULTPREC);
 	pr = idealprimedec_galois(K, stoi(2) );
+	X = varhigher("X",nf_get_varn(K));
 	
 	a = mkcol2s(2,1);
 	b = mkcol2s(3,-2);
@@ -98,23 +99,23 @@ int main(){
 	zkfactmod_vec(K,M,45);
 	zkfactmodnorm_vec(K,M,-1);
 	zkfactmodnorm_vec(K,M,36);
-	zkfactpol(K,10,"s",0);
-	zkfactpol(K,30,"s",2);
-	zkfactpol_vec(K,13,"rtuiyuhj",1);
-	zkremfactpol(K, 1, 12, "s",1);
-	zkremfactpol(K, 0, 56, "oohoh", 2);
-	zkremfactpol(K, 3, 5, "e", 0);
-	zkremfactpol_vec(K,2, 10, "s", 2);
-	zkremfactpol_vec(K,0,50,"z",1);
-	zkfactmodpol(K, M, 10, "s", 0);
-	zkfactmodpol(K, M, 1, "igiiu",2);
-	zkfactmodpol_vec(K, M, 20, "s",0);
-	zkregbasis(L, 10, "s", 0);
-	zkregbasis(L, 20, "oioi",2);
-	zkremregbasis(L, 2, 10, "s", 0);
-	zkremregbasis(L, 0, 12, "oihohi", 2);
-	zkmodregbasis(L, M, 10, "s", 0);
-	zkmodregbasis(L, M, 12, "igig", 2);
+	zkfactpol(K,10,X);
+	zkfactpol(K,30,X);
+	zkfactpol_vec(K,13,X);
+	zkremfactpol(K, 1, 12, X);
+	zkremfactpol(K, 0, 56, X);
+	zkremfactpol(K, 3, 5, X);
+	zkremfactpol_vec(K,2, 10, X);
+	zkremfactpol_vec(K,0,50,X);
+	zkfactmodpol(K, M, 10, X);
+	zkfactmodpol(K, M, 1, X);
+	zkfactmodpol_vec(K, M, 20, X);
+	zkregbasis(L, 10, X);
+	zkregbasis(L, 20, X);
+	zkremregbasis(L, 2, 10, X);
+	zkremregbasis(L, 0, 12, X);
+	zkmodregbasis(L, M, 10, X);
+	zkmodregbasis(L, M, 12, X);
 	ispolyaupto(L, 100);
 	ispolyaupto_rem(L, 3, 100);
 	ispolyaupto_mod(L, M, 100);

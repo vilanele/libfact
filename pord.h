@@ -22,9 +22,10 @@ GEN zkfact( GEN nf, long k );
 GEN zkfact_vec( GEN nf, long n );
 GEN zkfactnorm( GEN nf, long k );
 GEN zkfactnorm_vec(GEN nf, long n);
-GEN zkfactpol(GEN nf, long k, const char *s, long cmode);
-GEN zkfactpol_vec( GEN nf, long n, const char *s, long cmode );
-GEN zkregbasis( GEN bnf, long n, const char *s, long cmode );
+GEN zkfactpol(GEN nf, long k, GEN var );
+GEN zkfactpol_vec( GEN nf, long n, GEN var);
+GEN zkregbasis( GEN bnf, long n, GEN var);
+GEN zkregbasis_dec(GEN bnf, GEN pol, GEN var);
 int ispolyaupto( GEN bnf, long n );
 
 #endif

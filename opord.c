@@ -441,18 +441,20 @@ int iszkopord(GEN nf, GEN pr, GEN S, long h){
 	return ZV_equal(zkopord_e(nf,pr,h,vcard(S)-1), opord_get_e(nf, pr, S, h, -1));
 }
 
-GEN zkfactmodpol(GEN nf, GEN modulus, long k, const char *s, long cmode){
+GEN zkfactmodpol(GEN nf, GEN modulus, long k, GEN var){
 	
 	pari_sp afe;
-	GEN H,P,op,p,h,x,pol;
-	long v, unused;
+	GEN H,P,op,p,h,x,pol,X;
 	
 	afe = avma;
-	v = varn(varhigher(s,nf_get_varn(get_nf(nf,&unused))));
+	nf = checknf(nf);
+	if( !var ) X = varhigher("X",nf_get_varn(nf));
+	else X = var;
+
 	if( !k )
-		return pol_1(v);
+		return pol_1(varn(X));
 	if( k == 1 )
-		return pol_x(v);
+		return gcopy(X);
 	
 	P = gel(modulus,1);
 	H = gel(modulus,2);
@@ -463,24 +465,31 @@ GEN zkfactmodpol(GEN nf, GEN modulus, long k, const char *s, long cmode){
 		gel(op,i) = zkopord(nf,p,itos(h),k);
 	}
 	
-	pol = pol_1(v);
+	pol = pol_1(varn(X));
 	for(long i = 1; i <= k; i++){
 		x = idealchinese(nf,modulus,row(op,i));
 		x = basistoalg(nf,x);
-		pol = RgX_mul(pol,RgX_Rg_sub(pol_x(v),x));
+		pol = RgX_mul(pol,RgX_Rg_sub(X,x));
 	}
 	
-	return gerepileupto(afe,nfX_cmode(nf,pol,cmode));
+	return gerepileupto(afe,pol);
 }
 
-GEN zkfactmodpol_vec(GEN nf, GEN modulus, long n, const char *s, long cmode){
+GEN zkfactmodpol_vec(GEN nf, GEN modulus, long n, GEN var){
 	
 	pari_sp afe,top;
-	GEN H,P,op,p,h,x,pol,vec;
-	long v, unused;
+	GEN H,P,op,p,h,x,pol,vec,X;
 	
 	afe = avma;
-	v = varn(varhigher(s,nf_get_varn(get_nf(nf,&unused))));
+	nf = checknf(nf);
+	if( !var ) X = varhigher("X",nf_get_varn(nf));
+	else X = var;
+
+	if( !n )
+		return pol_1(varn(X));
+	if( n == 1 )
+		return gcopy(X);
+
 	P = gel(modulus,1);
 	H = gel(modulus,2);
 	op = cgetg(lg(P),t_VEC);
@@ -491,36 +500,34 @@ GEN zkfactmodpol_vec(GEN nf, GEN modulus, long n, const char *s, long cmode){
 	}
 	
 	vec = cgetg(1+(n+1),t_VEC);
-	gel(vec,1) = pol_1(v);
+	gel(vec,1) = pol_1(varn(X));
 	for(long k = 1; k <=n; k++ ){
 		top = avma;
-		pol = pol_1(v);
+		pol = pol_1(varn(X));
 		for(long i = 1; i <= k; i++){
 			x = idealchinese(nf,modulus,row(op,i));
 			x = basistoalg(nf,x);
-			pol = RgX_mul(pol,RgX_Rg_sub(pol_x(v),x));
+			pol = RgX_mul(pol,RgX_Rg_sub(X,x));
 		}
-		gel(vec,k+1) = gerepileupto(top,nfX_cmode(nf,pol,cmode));
+		gel(vec,k+1) = gerepileupto(top,pol);
 	}
 	
 	return gerepilecopy(afe,vec);	
 }
 
-GEN zkmodregbasis(GEN bnf, GEN modulus, long n, const char *s, long cmode){
+GEN zkmodregbasis(GEN bnf, GEN modulus, long n, GEN var){
 	
-	pari_sp afe,top;
+	pari_sp afe;
 	GEN v,g,x,polvec;
 	
 	afe = avma;
 	g = principalgen(bnf,zkfactmod_vec(bnf,modulus,n));
-	polvec = zkfactmodpol_vec( bnf, modulus, n, s,cmode);
+	polvec = zkfactmodpol_vec( bnf, modulus, n, var);
 	v = cgetg(1+(n+1),t_VEC);
 	gel(v,1) = gel(polvec,1);
 	for( long i = 2; i <= vcard(v); i++ ){
-		top = avma;
 		x = basistoalg(bnf,nfinv(bnf,gel(g,i-1)));
-		x = RgX_Rg_mul(gel(polvec,i),x);
-		gel(v,i) = gerepilecopy(top,nfX_cmode(bnf,x,cmode));
+		gel(v,i) = RgX_Rg_mul(gel(polvec,i),x);
 	}
 		
 	return gerepilecopy(afe,v);
@@ -574,16 +581,19 @@ int isopord(GEN nf, GEN pr, GEN S, long h, long n, GEN *i){
 	return is;	
 }
 
-GEN zkmodregbasis_dec(GEN bnf, GEN pol, GEN mod, const char *s){
+GEN zkmodregbasis_dec(GEN bnf, GEN pol, GEN mod, GEN var){
 	
 	pari_sp afe;
 	GEN B, X, M;
 	long deg;
 	
 	afe = avma;
+	if( !var )
+		var = pol_x(varn(pol));
+
 	deg = degree(pol);
 	
-	B = zkmodregbasis(bnf, mod, deg, s, 0);
+	B = zkmodregbasis(bnf, mod, deg, var);
 	X = RgX_to_RgC(pol, deg + 1);
 	M = RgXV_to_RgM(B, vcard(B));
 

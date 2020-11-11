@@ -1,10 +1,10 @@
 {
-s = "zkfactmodpol(nf, M, k, s, cmode = 1): return a polynomial
+s = "zkfactmodpol(nf, M, k, var): return a polynomial
 pol of degree k in zk[X] such that pol(zk) generates the k-th
-factorial ideal of modulus M of nf. The variable name is set
-to s. The flag cmode tunes the returned polynomial coefficients:
-0 for t_POLMOD, 1 for t_POL, 2 for t_COL.";
+factorial ideal of modulus M of nf. The returned pol variable
+is var, so  var's priority must be higher than the one in nf. 
+The nf coefficients in the returned pol are in t_POLMOD form.";
 replace_eol(s);
-install("zkfactmodpol","GGLsD1,L,","zkfactmodpol",libfact);
+install("zkfactmodpol","GGLDG","zkfactmodpol",libfact);
 addhelp("zkfactmodpol",s);
 }

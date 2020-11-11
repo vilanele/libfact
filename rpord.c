@@ -589,71 +589,104 @@ GEN zkremfactnorm_vec(GEN nf, long r, long n){
 	return gerepileupto(afe,norms);	
 }
 
-GEN zkremfactpol_core(GEN nf, long r, long k,long v, long cmode){
+GEN rlegf_pr(GEN pr, long r, GEN n){
 	
+	pari_sp afe;
+	GEN v;
+	
+	afe = avma;
+	v = cgetg(lg(pr),t_VEC);
+	for( long i = 1; i <= vcard(pr); i++ )
+		gel(v,i) = rlegf(pr_norm(gel(pr,i)),n,stoi(r));
+	
+	return gerepilecopy(afe,v);
+}
+
+
+GEN zkremfactpol(GEN nf, long r, long n, GEN var){
+
 	pari_sp afe = avma;
-	GEN maxv, spord, e,mat,c, pol;
-	long unused;
+	GEN M,E,mat,pol,vpord,X,a;
+	
+	nf = checknf(nf);
+	if( !var ) X = varhigher("X",nf_get_varn(nf));
+	else X = var;
 
-	if( !k ) return pol_1(v);
-	if( k == 1 ) return pol_x(v);
-	
-	nf = get_nf(nf,&unused);
-	maxv = maxideals(nf,k);
-	spord = cgetg(lg(maxv),t_VEC);
-	e = cgetg(lg(maxv),t_COL);
-	
-	for( long i = 1; i <= vcard(maxv); i++ ) {
-		gel(spord,i) = zkrpord(nf,gel(maxv,i),r,k);
-		gel(e,i) = addis(rlegf( pr_norm(gel(maxv,i)), stoi(k),stoi(r) ),1);
+	if( !n )
+		pol = pol_1(varn(X));
+	else if( n == 1 )
+		pol = gcopy(X);
+	else{
+		M = maxideals(nf,n);
+		vpord = zkpord(nf,M,n);
+		E = ZC_add(rlegf_pr(M,r,stoi(n)),const_vec(vcard(M),gen_1));
+		mat = mkmat2(M,E);
+		pol = pol_1(varn(X));
+		for( long i = 1; i <= n; i++ ){
+			a = basistoalg(nf,idealchinese(nf,mat,row(vpord,i)));
+			pol = RgX_mul(pol,RgX_Rg_sub(X,a));
+		}
 	}
-	
-	mat = mkmat2(vec_to_col(maxv),e);
-	c = cgetg(k+1,t_VEC);
-	for( long i = 1; i <= k; i++ )
-		gel(c,i ) = basistoalg(nf,idealchinese(nf,mat,row(spord,i)));
 
-	pol = pol_1(v);
-	for( long i = 1; i <= k; i++ )
-		pol = RgX_mul(pol,RgX_Rg_sub(pol_x(v),gel(c,i)));
+	return gerepileupto(afe,pol);	
+}
+
+
+GEN zkremfactpol_vec(GEN nf, long r, long n, GEN var){
+	
+	pari_sp afe, top;
+	GEN M,E,mat,pol,vpord,X,a,Mk,v;
+	
+	afe = avma;
+	nf = checknf(nf);
+	if( !var ) X = varhigher("X",nf_get_varn(nf));
+	else X = var;
+
+	v = cgetg(1+(n+1),t_VEC);
+	gel(v,1) = pol_1(varn(X));
+
+	if( n >= 1){
+		gel(v,2) = gcopy(X);
 		
-	return gerepileupto(afe,nfX_cmode(nf,pol,cmode));
+		if(n >= 2){
+			M = idealmaxlist(nf, n);
+			Mk = mkvecn(0); vpord = mkvecn(0);
+			for( long k = 2; k <= n; k++ ){
+				top = avma;
+				if( vcard(gel(M,k)) ){
+					vpord = shallowconcat(vpord,zkpord(nf,gel(M,k),n));
+					Mk = shallowconcat(Mk,gel(M,k));
+				}
+				
+				E = ZC_add(rlegf_pr(Mk,r,stoi(k)),const_vec(vcard(Mk),gen_1));
+				mat = mkmat2(Mk,E);
+				pol = pol_1(varn(X));
+				for( long i = 1; i <= k; i++ ){
+					a = basistoalg(nf,idealchinese(nf,mat,row(vpord,i)));
+					pol = RgX_mul(pol,RgX_Rg_sub(X,a));
+				}
+				gerepileall(top,3,&vpord,&Mk,&pol);
+				gel(v,k+1) = pol;
+			}
+		}
+	}
+		
+	return gerepilecopy(afe,v);	
+
 }
 
-GEN zkremfactpol( GEN nf, long r, long k, const char *s, long cmode ) {
-	
-	long v, unused;
 
-	v = varn(varhigher(s,nf_get_varn(get_nf(nf,&unused))));
-	return zkremfactpol_core( nf, r, k, v, cmode );
-}
-
-GEN zkremfactpol_vec(GEN nf, long r, long n, const char *s, long cmode){
-
-	GEN w;
-	long v, unused;
-	
-	v = varn(varhigher(s,nf_get_varn(get_nf(nf,&unused))));
-	w = cgetg(1+(1+n),t_VEC);
-	for( long i = 1; i <= vcard(w); i++ )
-		gel(w,i) = zkremfactpol_core(nf,r,i-1,v,cmode);
-
-	return w;
-}
-
-GEN zkremregbasis( GEN bnf, long r, long n, const char *s, long cmode ) {
+GEN zkremregbasis( GEN bnf, long r, long n, GEN var ) {
 	
 	pari_sp afe = avma;
 	GEN w,g;
 	
 	g = principalgen( bnf, zkremfact_vec( bnf,r,n) );
-	w = zkremfactpol_vec( bnf, r, n, s, cmode);
+	w = zkremfactpol_vec( bnf, r, n, var);
 
-	for( long i = 2; i <= vcard(w); i++ ){
-		pari_sp av = avma;
+	for( long i = 2; i <= vcard(w); i++ )
 		gel(w,i) = RgX_Rg_mul(gel(w,i),basistoalg(bnf,nfinv(bnf,gel(g,i-1))));
-		gel(w,i) = gerepileupto(av,nfX_cmode(bnf,gel(w,i),cmode));
-	}
+	
 		
 	return gerepileupto(afe,w);
 }
@@ -738,15 +771,19 @@ GEN nfX_divdiff(GEN nf, GEN pol, long k, GEN *vars){
 	return pol;
 }
 
-GEN zkremregbasis_dec(GEN bnf, GEN pol, long r, const char *s){
+GEN zkremregbasis_dec(GEN bnf, GEN pol, long r, GEN var){
 	
 	pari_sp afe;
 	GEN B, X, M;
 	long deg;
 	
 	afe = avma;
+
+	if( !var )
+		var = pol_x(varn(pol));
+
 	deg = degree(pol);
-	B = zkremregbasis(bnf, r, deg, s, 0);
+	B = zkremregbasis(bnf, r, deg, var);
 	X = RgX_to_RgC(pol, deg + 1);
 	M = RgXV_to_RgM(B, vcard(B));
 	

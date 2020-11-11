@@ -1,8 +1,8 @@
 {
-s = "zkfactmodpol_vec(nf, M, k, s, cmode = 1): return
+s = "zkfactmodpol_vec(nf, M, k, var): return
 a vector v of length n+1 such that v[i] =
-zkfactmodpol(nf, M, i-1, s, cmode).";
+zkfactmodpol(nf, M, i-1,var).";
 replace_eol(s);
-install("zkfactmodpol_vec","GGLsD1,L,","zkfactmodpol_vec",libfact);
+install("zkfactmodpol_vec","GGLDG","zkfactmodpol_vec",libfact);
 addhelp("zkfactmodpol_vec",s);
 }
