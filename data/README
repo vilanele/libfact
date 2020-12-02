@@ -1,0 +1,128 @@
+Chaque fichier K{i}.gp pour i allant de 2 à 10 installe des données relatifs à un corps
+de nombre de degré i donné par: 
+
+K2 : x^2 + 23
+K3 : x^3 - x^2 + 14*x - 1
+K4 : x^4 + 13*x^2 + 81
+K5 : x^5 - 2*x^4 + 4*x^3 + 4*x + 2
+K6 : x^6 + 3*x^4 + 8*x^2 + 23
+K7 : x^7 - 2*x^6 + 10*x^5 - 30*x^4 + 31*x^3 - 14*x^2 + 2*x + 1
+K8 : x^8 - x^7 + 7*x^6 + 4*x^5 + 36*x^4 - 4*x^3 + 7*x^2 + x + 1
+K9 : x^9 - 18*x^6 - 144*x^3 - 216
+K10 : x^10 + 18*x^8 + 112*x^6 + 280*x^4 + 240*x^2 + 32
+
+Le fichier data.gp installe tout les K{i}.gp (~ 35Mo).
+
+########################################################################################
+
+Ces corps de nombres sont soigneusement choisis de sorte à vérifier les points suivants:
+
+- avoir un groupe de classe non trivial
+
+- Int(20,K{i}) admet une base régulière 
+ 
+- Int(20,r,K{i}) admet une base régulière pour tout r >= 0
+
+- Int(20,M,K{i}) admet une base régulière où M = 2*3*5
+
+où on rappelle que 
+
+- Int(20,K{i}) est le module des polynômes à valeurs entières de degré au plus 20
+
+- Int(20,r,K{i}) est le sous-module de Int(20,K{i}) des polynômes dont les r premières
+différences deivisées sont aussi à valeurs entières
+
+- Int(20,M,K{i}) est le sous-module de Int(20,K{i}) des polynômes qui affinement composés
+avec le module M son encore à valeurs entières
+
+###########################################################################################
+
+On y trouve les objets suivants:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~ Ensembles d'entiers algébriques ~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- K{i}_set{2^k} pour k allant de 1 à 12 est un ensemble d'entiers algébriques du corps K{i} 
+  de cardinal 2^k.
+
+  Exemples : 
+	K2_set128 : ensemble d'entiers algériques du corps K2 de cardinal 128
+	K5_set1024 : ensemble d'entiers algébriques du corps K5 de cardinal 1024
+
+- K{i}_sets = vector(12,i,K{i}_set{2^k}) est un vecteur contenant les K{i}_set{2^k} par cardinaux
+  croissants.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~ Ensembles croissants d'entiers algébriques ~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- K{i}_gset{2^k} pour k allant de 1 à 12. Exactement comme K{i}_set{2^k} mais les ensembles
+  sont croissants
+
+  Exemples :
+	K3_gset128 : ensemble d'entiers algébriques de K3 de cardinal 128
+	K3_gset256 : ensemble d'entiers algébriques de K3 de cardinal 256 contenant
+                            K3_gset128
+
+- K{i}_gsets = vector(12,i,K{i}_gsets{2^k}) est un vecteur contenant les K{i}_gset{2^k}
+  par cardinaux croissants
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~ Idéaux premiers de normes croissantes ~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- K{i}_primes est un vecteur contenant 26 idéaux premiers de K{i} de normes croissantes
+
+  Exemple :
+	K2_primes[3] : idéal premier de K2
+	K2_primes[4] : idéal premier de K2 de norme supérieur à celle de K2_primes[3]
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~ Modules croissants ~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- K{i}_modulus est un vecteur contenant les idéaux de K{i} (2*3*5)^k pour k allant de 1 à 20.
+  
+  Exemples : 
+	K6_modulus[2] = idealfactor(K6,(2*3*5)^2)
+	K8_modulus[12] = idealfactor(K8,(2*3*5)^12)
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~ Polynomes de Int(20,K{i}) ~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- K{i}_intpols est un vecteur de taille 20 tel que K{i}_intpols[k] est un polynôme de Int(20,K{i})
+  de degré k. 
+
+  Exemples : 
+	K4_intpols[5] est un polynôme de K4 de degré 5 et à valeurs entières
+	K7_intpols[7] est un oplynôme de K7 de degré 7 et à valeurs entières 
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~ Polynomes de Int(20,r,K{i}) ~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- K{i}_r{j}_intpols est un vecteur de taille 20 tel que K{i}_r{j}_intpols[k] est un polynôme
+  de Int(20,j,K{i}) de degré k. j peut varier de 1 à 10
+ 
+  Exemples :
+  	K4_r1_intpols[5] est un polynpome à valeurs entières de K4 de degré 5 tel que sa différence
+	divisée est à valeurs entières
+	K7_r3_intpols[6] est un polynome à valeurs entières de K7 de degré 6 tel que ses 3 premières
+	différences divisées soient à valeurs entières
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~ Polynômes de Int(20,M,K{i}) ~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- K{i}_M{j}_intpols est un vecteur de taille 20 tel que K{i}_M{j}_intpols[k] est un polynôme
+  de Int(20,K{i}_modulus[j],K{i}) de degré k. j peut varier de 1 à 20
+  de degré k. 
+ 
+  Exemples : 
+	K2_M3_intpols[3] est un polynome à valeurs entières de K2 de degré 3 tel que composé affinement
+        avec le module (2*3*5)^3 il est encore à valeurs entières
+	K10_M6_intpoles[7] est un polynomes à valeurs entières de K10 de degré 7 tel que composé
+        affinement avec le module (2*3*5)^6 il est encore à valeurs entières
+

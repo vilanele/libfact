@@ -1,0 +1,20 @@
+print("K = nfinit(x^5 + 3);");
+K = nfinit(x^5 + 3);
+print("pr = idealprimedec(K,2)[1];");
+pr = idealprimedec(K,2)[1];
+print("S = [1..10];");
+S = [1..10];
+print("r=2;");
+r=2;
+print("rpord(K,pr,S,r,20,&ex,&inv)");
+rpord(K,pr,S,r,20,&ex,&inv)
+print("ex");
+ex
+print("inv");
+inv
+print("rpord(K,pr,S,r,,&ex,&inv)");
+rpord(K,pr,S,r,,&ex,&inv)
+print("ex");
+ex
+print("inv");
+inv

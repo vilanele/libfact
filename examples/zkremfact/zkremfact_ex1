@@ -1,0 +1,26 @@
+print("K = nfinit(x^2 + 1);");
+K = nfinit(x^2 + 1);
+print("r = 1;");
+r = 1;
+print("zkremfact(K,r,10)");
+zkremfact(K,r,10)
+print("zkremfact(K,r,20)");
+zkremfact(K,r,20)
+print("zkremfact(K,r,100)");
+zkremfact(K,r,100)
+print("r = 2;");
+r = 2;
+print("zkremfact(K,r,10)");
+zkremfact(K,r,10)
+print("zkremfact(K,r,20)");
+zkremfact(K,r,20)
+print("zkremfact(K,r,100)");
+zkremfact(K,r,100)
+print("r = 3;");
+r = 3;
+print("zkremfact(K,r,10)");
+zkremfact(K,r,10)
+print("zkremfact(K,r,20)");
+zkremfact(K,r,20)
+print("zkremfact(K,r,100)");
+zkremfact(K,r,100)

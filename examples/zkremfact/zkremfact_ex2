@@ -1,0 +1,26 @@
+print("K = nfinit(x^7 + 10);");
+K = nfinit(x^7 + 10);
+print("r = 1;");
+r = 1;
+print("zkremfact(K,r,2)");
+zkremfact(K,r,2)
+print("zkremfact(K,r,5)");
+zkremfact(K,r,5)
+print("zkremfact(K,r,10)");
+zkremfact(K,r,10)
+print("r = 2;");
+r = 2;
+print("zkremfact(K,r,2)");
+zkremfact(K,r,2)
+print("zkremfact(K,r,5)");
+zkremfact(K,r,5)
+print("zkremfact(K,r,10)");
+zkremfact(K,r,10)
+print("r = 3;");
+r = 3;
+print("zkremfact(K,r,2)");
+zkremfact(K,r,2)
+print("zkremfact(K,r,5)");
+zkremfact(K,r,5)
+print("zkremfact(K,r,10)");
+zkremfact(K,r,10)

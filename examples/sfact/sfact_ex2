@@ -1,0 +1,10 @@
+print("K = nfinit(polcyclo(5));");
+K = nfinit(polcyclo(5));
+print("S = [1..20];");
+S = [1..20];
+print("sfact(K,S,5)");
+sfact(K,S,5)
+print("sfact(K,S,12)");
+sfact(K,S,12)
+print("sfact(K,S,#S-1)");
+sfact(K,S,#S-1)

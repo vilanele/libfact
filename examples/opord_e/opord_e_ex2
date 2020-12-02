@@ -1,0 +1,22 @@
+print("K = nfinit(polcyclo(11));");
+K = nfinit(polcyclo(11));
+print("pr = idealprimedec(K,2)[1];");
+pr = idealprimedec(K,2)[1];
+print("S = [1..30303030];");
+S = [1..30303030];
+print("h=1;");
+h=1;
+print("opord_e(K,pr,S,h)");
+opord_e(K,pr,S,h)
+print("h=2;");
+h=2;
+print("opord_e(K,pr,S,h)");
+opord_e(K,pr,S,h)
+print("h=3;");
+h=3;
+print("opord_e(K,pr,S,h)");
+opord_e(K,pr,S,h)
+print("h=10;");
+h=10;
+print("opord_e(K,pr,S,h)");
+opord_e(K,pr,S,h)

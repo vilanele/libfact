@@ -1,0 +1,21 @@
+Pour utiliser ces exemples, il faut charger la librairie "libfact.gp" dans une session gp.
+Il suffit alors de lire le fichier souhaité.
+
+Pour un exemple d'utilisation de la fonction pord:
+	\r examples/pord/pord_ex1
+
+Pour un autre exemple de la fonction pord:
+	\r examples/pord/pord_ex2
+
+Pour un exemple d'utilisation de zkregbasis_dec:
+	\r examples/zkregbasis_dec/zkregbasis_dec_ex1
+
+On peut aussi lire les fichiers correspondants avec l'extension ".gp", mais ceux ci
+ne fournissent que le réultat (pas d'affichage).
+
+Tout les exemples sont calibrés pour pouvoir être afficher lisiblement dans la console
+et comprendre rapidement ce que fait la fonction.
+
+Pour des exemples plus poussés ( et plus nécessairement affichables ), on peut aller
+voir dans bench/ et dans data/.
+

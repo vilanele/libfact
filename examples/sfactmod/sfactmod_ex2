@@ -1,0 +1,18 @@
+print("K = nfinit(x^2 + 1);");
+K = nfinit(x^2 + 1);
+print("S = [1..200];");
+S = [1..200];
+print("a = 2*3*5;");
+a = 2*3*5;
+print("M = idealfactor(K,a);");
+M = idealfactor(K,a);
+print("sfact(K,S,5)");
+sfact(K,S,5)
+print("sfactmod(K,S,M,5)");
+sfactmod(K,S,M,5)
+print("M = idealfactor(K,a^2);");
+M = idealfactor(K,a^2);
+print("sfact(K,S,5)");
+sfact(K,S,5)
+print("sfactmod(K,S,M,5)");
+sfactmod(K,S,M,5)

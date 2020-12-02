@@ -1,0 +1,20 @@
+print("K = nfinit(polcyclo(5));");
+K = nfinit(polcyclo(5));
+print("a = 2*3;");
+a = 2*3;
+print("M = idealfactor(K,a);");
+M = idealfactor(K,a);
+print("zkfactmod(K,M,30)");
+zkfactmod(K,M,30)
+print("zkfactmod(K,M,60)");
+zkfactmod(K,M,60)
+print("b = 5;");
+b = 5;
+print("M = idealfactor(K,b*a^2);");
+M = idealfactor(K,b*a^2);
+print("zkfactmod(K,M,30)");
+zkfactmod(K,M,30)
+print("zkfactmod(K,M,60)");
+zkfactmod(K,M,60)
+print("");
+

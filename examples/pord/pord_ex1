@@ -1,0 +1,26 @@
+print("K = nfinit(x^2 + 1);");
+K = nfinit(x^2 + 1);
+print("pr = idealprimedec(K,2)[1];");
+pr = idealprimedec(K,2)[1];
+print("S = [[1,2]~,[2,3]~,[4,5]~,[6,-6]~,[-8,1]~,[6,-3]~];");
+S = [[1,2]~,[2,3]~,[4,5]~,[6,-6]~,[-8,1]~,[6,-3]~];
+print("pord(K,pr,S,1)");
+pord(K,pr,S,1)
+print("pord(K,pr,S,2)");
+pord(K,pr,S,2)
+print("pord(K,pr,S,1,3)");
+pord(K,pr,S,1,3)
+print("pord(K,pr,S,1,4)");
+pord(K,pr,S,1,4)
+print("pord(K,pr,S,1,4,&ex,&inv)");
+pord(K,pr,S,1,4,&ex,&inv)
+print("ex");
+ex
+print("inv");
+inv
+print("pord(K,pr,S,,,&ex,&inv)");
+pord(K,pr,S,,,&ex,&inv)
+print("ex");
+ex
+print("inv");
+inv

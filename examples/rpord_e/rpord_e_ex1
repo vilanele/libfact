@@ -1,0 +1,20 @@
+print("K = nfinit(x^2 + 5);");
+K = nfinit(x^2 + 5);
+print("pr = idealprimedec(K,2)[1];");
+pr = idealprimedec(K,2)[1];
+print("S = [1..10];");
+S = [1..10];
+print("r = 1;");
+r = 1;
+print("rpord_e(K,pr,S,r,10)");
+rpord_e(K,pr,S,r,10)
+print("r = 2;");
+r = 2;
+print("rpord_e(K,pr,S,r,10)");
+rpord_e(K,pr,S,r,10)
+print("r = 3;");
+r = 3;
+print("rpord_e(K,pr,S,r,10)");
+rpord_e(K,pr,S,r,10)
+print("rpord_e(K,pr,S,r)");
+rpord_e(K,pr,S,r)

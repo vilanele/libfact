@@ -1,0 +1,12 @@
+print("K = nfinit(x^4 + 2);");
+K = nfinit(x^4 + 2);
+print("zkfact(K,3)");
+zkfact(K,3)
+print("zkfact(K,10)");
+zkfact(K,10)
+print("zkfact(K,30)");
+zkfact(K,30)
+print("");
+
+print("");
+

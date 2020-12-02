@@ -1,0 +1,8 @@
+print("K = bnfinit(x^2 + 3);");
+K = bnfinit(x^2 + 3);
+print("T = varhigher(\"T\",x);");
+T = varhigher("T",x);
+print("V = zkregbasis(K,5,T);");
+V = zkregbasis(K,5,T);
+print("for(i=1,#V, print(\"deg \"i-1\" : \"nfXcmode(K,V[i],2)))");
+for(i=1,#V, print("deg "i-1" : "nfXcmode(K,V[i],2)))

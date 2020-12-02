@@ -1,0 +1,16 @@
+print("K = nfinit(x^7 + x^3 - 3);");
+K = nfinit(x^7 + x^3 - 3);
+print("a = 224565444;");
+a = 224565444;
+print("M = idealfactor(K,a);");
+M = idealfactor(K,a);
+print("zkfactmod(K,M,30)");
+zkfactmod(K,M,30)
+print("zkfactmod(K,M,60)");
+zkfactmod(K,M,60)
+print("M = idealfactor(K,a^2);");
+M = idealfactor(K,a^2);
+print("zkfactmod(K,M,30)");
+zkfactmod(K,M,30)
+print("zkfactmod(K,M,60)");
+zkfactmod(K,M,60)

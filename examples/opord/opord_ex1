@@ -1,0 +1,34 @@
+print("K = nfinit(x^5 + 2);");
+K = nfinit(x^5 + 2);
+print("pr = idealprimedec(K,2)[1];");
+pr = idealprimedec(K,2)[1];
+print("S = concat([1..10],[x^4,x^3 + 2, x 1-x, 2-x, 3-x]);");
+S = concat([1..10],[x^4,x^3 + 2, x 1-x, 2-x, 3-x]);
+print("h = 1;");
+h = 1;
+print("opord(K,pr,S,h,1)");
+opord(K,pr,S,h,1)
+print("opord(K,pr,S,h,3)");
+opord(K,pr,S,h,3)
+print("opord(K,pr,S,h,3,10)");
+opord(K,pr,S,h,3,10)
+print("opord(K,pr,S,h,3,10,&ex,&inv)");
+opord(K,pr,S,h,3,10,&ex,&inv)
+print("ex");
+ex
+print("inv");
+inv
+print("h = 5;");
+h = 5;
+print("opord(K,pr,S,h,1)");
+opord(K,pr,S,h,1)
+print("opord(K,pr,S,h,3)");
+opord(K,pr,S,h,3)
+print("opord(K,pr,S,h,3,10)");
+opord(K,pr,S,h,3,10)
+print("opord(K,pr,S,h,3,10,&ex,&inv)");
+opord(K,pr,S,h,3,10,&ex,&inv)
+print("ex");
+ex
+print("inv");
+inv

@@ -1,0 +1,24 @@
+print("K = nfinit(x^2 + 3);");
+K = nfinit(x^2 + 3);
+print("pr = idealprimedec(K,2)[1];");
+pr = idealprimedec(K,2)[1];
+print("S = [1,x,2*x,[3,4]~,[3,5]~,3*x+1,8,7,2*x+9];");
+S = [1,x,2*x,[3,4]~,[3,5]~,3*x+1,8,7,2*x+9];
+print("h=1;");
+h=1;
+print("opord_e(K,pr,S,h)");
+opord_e(K,pr,S,h)
+print("h=2;");
+h=2;
+print("opord_e(K,pr,S,h)");
+opord_e(K,pr,S,h)
+print("h=3;");
+h=3;
+print("opord_e(K,pr,S,h)");
+opord_e(K,pr,S,h)
+print("h=10;");
+h=10;
+print("opord_e(K,pr,S,h)");
+opord_e(K,pr,S,h)
+print("opord_e(K,pr,S,h,4)");
+opord_e(K,pr,S,h,4)

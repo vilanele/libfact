@@ -1,0 +1,10 @@
+print("K = nfinit(x^16 -6);");
+K = nfinit(x^16 -6);
+print("zkfact(K,10)");
+zkfact(K,10)
+print("zkfact(K,20)");
+zkfact(K,20)
+print("zkfact(K,30)");
+zkfact(K,30)
+print("");
+

@@ -1,0 +1,16 @@
+print("K = bnfinit(x^3 + 2);");
+K = bnfinit(x^3 + 2);
+print("T = varhigher(\"T\",x);");
+T = varhigher("T",x);
+print("r = 1;");
+r = 1;
+print("V = zkremregbasis(K,r,6,T);");
+V = zkremregbasis(K,r,6,T);
+print("for(i=1,#V, print(\"deg \"i-1\" : \"nfXcmode(K,V[i],2)))");
+for(i=1,#V, print("deg "i-1" : "nfXcmode(K,V[i],2)))
+print("r = 2;");
+r = 2;
+print("V = zkremregbasis(K,r,6,T);");
+V = zkremregbasis(K,r,6,T);
+print("for(i=1,#V, print(\"deg \"i-1\" : \"nfXcmode(K,V[i],2)))");
+for(i=1,#V, print("deg "i-1" : "nfXcmode(K,V[i],2)))

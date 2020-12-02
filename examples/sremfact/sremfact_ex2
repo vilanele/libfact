@@ -1,0 +1,16 @@
+print("K = nfinit(x^2 + 3);");
+K = nfinit(x^2 + 3);
+print("S = concat([1..25],[[567,2]~,[675,3]~,[55,0]~,5,8,9,[6,90]~,[145,23]~,[56,90]~,23,[45,0]~,[0,45]~]);");
+S = concat([1..25],[[567,2]~,[675,3]~,[55,0]~,5,8,9,[6,90]~,[145,23]~,[56,90]~,23,[45,0]~,[0,45]~]);
+print("r = 1;");
+r = 1;
+print("sremfact(K,S,r,20)");
+sremfact(K,S,r,20)
+print("r = 2;");
+r = 2;
+print("sremfact(K,S,r,20)");
+sremfact(K,S,r,20)
+print("r = 3;");
+r = 3;
+print("sremfact(K,S,r,20)");
+sremfact(K,S,r,20)

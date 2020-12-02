@@ -1,0 +1,7 @@
+Pour utiliser les fonctions benchmark dans ce dossier, il faut installer dans une session
+la librairie "libfact.gp" ainsi que les données "data/data.gp" (voir le README dans data/).
+
+Tout les benchmarks prennent en premier paramètres le corps K{i} sur lequel on veut 
+travailler (K2,K3, ...où K10), les autres paramètres permettant de régler la magnitude du test.
+
+Voir les commentaires avant les fonctions pour des exemples d'utilisation.
