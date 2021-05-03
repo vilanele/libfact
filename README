@@ -12,7 +12,7 @@ If you want to know more about the mathematical background used in the
 library, you can consult the references at the end of libfact-doc.pdf
 or the following paper (in French):
 
-                 https://github.com/vilanele/intval
+                 https://github.com/vilanele/master-thesis
                              
                             
 Building libfact is straightforward : just run make. 
