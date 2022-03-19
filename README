@@ -7,13 +7,6 @@ There are two documentations for the library in doc:
 
     - libfact-quickdoc.pdf   a quick documentation only listing and
                              explaining  proposed functions
-
-If you want to know more about the mathematical background used in the
-library, you can consult the references at the end of libfact-doc.pdf
-or the following paper (in French):
-
-                 https://github.com/vilanele/master-thesis
-                             
                             
 Building libfact is straightforward : just run make. 
 It will produce three files :
